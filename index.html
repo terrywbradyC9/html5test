@@ -30,13 +30,18 @@
     }
 </script>
 <style type="text/css">
-    label {width: 100px;display:block;float:left; font-weight: bold;}
+    label {width: 150px;display:block;float:left; font-weight: bold;}
     output {color: gray;}
     div.final output {font-weight: bold;}
-    div.out {text-align: right; width: 250px;}
+    div.out {text-align: right; width: 350px;}
+    body {width: 430px; font-size: 1.2em;}
+    input {font-size: 1.2em; width: 200px;}
+    div {clear: both;}
+    h2 {text-align: center;}
 </style>
 </head>
 <body>
+<h2>Big Tipper</h2>
 <div>
     <form oninput="
       base.value=Number(mynum.value).toFixed(2);
@@ -50,11 +55,11 @@
     ">
     <div>
       <label for="mynum">Bill Amount: </label>
-      <input type="number" value="0" id="mynum" min="0"/>
+      <input type="number" value="0" id="mynum" min="0" length="6"/>
     </div>
     <div>
       <label for="pct">Tip: </label>
-      <input id="pct" type="number" value="15"/>%
+      <input id="pct" type="number" value="15" length="2"/>%
     </div>
     <hr/>
     <div class="out">
