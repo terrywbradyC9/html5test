@@ -39,7 +39,7 @@
 <body>
 <div>
     <form oninput="
-      base.value=parseInt(mynum.value).toFixed(2);
+      base.value=Number(mynum.value).toFixed(2);
       tip.value=(parseInt(mynum.value)*.01*parseInt(pct.value)).toFixed(2);
       total.value=(Number(base.value) + Number(tip.value)).toFixed(2);
       check.value=checkDigit(mynum.value);
