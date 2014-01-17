@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>   
+<script type="text/javascript">
+    $.ready(function(){
+        compute();
+    })
+    function compute(){
+        var val = $("#mynum");
+        $("#total").val(val);    
+    }
+</script>
+</head>
+<body>
+<div>
+    <form oninput="total.value=(parseInt(mynum.value)*(1+.01*parseInt(pct.value))).toFixed(2)" onforminput="total.value=(parseInt(mynum.value)*(1+.01*parseInt(pct.value))).toFixed(2)">
+    <input type="number" value="100" id="mynum"/>
+    <output id="pct">10%</output>
+    <output for="mynum pct" id="total"/>
+    </form>
+</div>    
+</body>
+</html>
