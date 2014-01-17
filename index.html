@@ -3,21 +3,90 @@
 <head>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>   
 <script type="text/javascript">
-    $.ready(function(){
-        compute();
-    })
-    function compute(){
-        var val = $("#mynum");
-        $("#total").val(val);    
+    function checkDigit(val) {
+        val = parseInt(val).toString();
+        var sum = 0;
+        for(var i=0; i<val.length; i++) {
+            var c = val.charAt(i);
+            sum += Number(c);
+        }
+        return sum % 10;
+    }
+    
+    function baseDigit(base) {
+         var baseCents = (Number(base) * 100).toFixed(0);
+         return baseCents % 10;       
+    }
+    
+    function adjustmentVal(base) {
+        var baseCents = Number(base) * 100;
+        var checkv = checkDigit(base);
+        var curDig = baseCents % 10;
+        var adj = checkv - curDig;
+        if (adj < 0) {adj += 10;}
+        return (adj * 0.01).toFixed(2);
     }
 </script>
+<style type="text/css">
+    label {width: 100px;display:block;float:left; font-weight: bold;}
+    output {color: gray;}
+    div.final output {font-weight: bold;}
+    div.out {text-align: right; width: 250px;}
+</style>
 </head>
 <body>
 <div>
-    <form oninput="total.value=(parseInt(mynum.value)*(1+.01*parseInt(pct.value))).toFixed(2)" onforminput="total.value=(parseInt(mynum.value)*(1+.01*parseInt(pct.value))).toFixed(2)">
-    <input type="number" value="100" id="mynum"/>
-    <output id="pct">10%</output>
-    <output for="mynum pct" id="total"/>
+    <form oninput="
+      base.value=parseInt(mynum.value).toFixed(2);
+      tip.value=(parseInt(mynum.value)*.01*parseInt(pct.value)).toFixed(2);
+      total.value=(Number(base.value) + Number(tip.value)).toFixed(2);
+      check.value=checkDigit(mynum.value);
+      basedig.value=baseDigit(mynum.value);
+      adjustment.value=adjustmentVal(mynum.value);
+      newtip.value=(Number(tip.value) + Number(adjustment.value)).toFixed(2);
+      newtotal.value=(Number(total.value) + Number(adjustment.value)).toFixed(2);
+    ">
+    <div>
+      <label for="mynum">Bill Amount: </label>
+      <input type="number" value="0" id="mynum" min="0"/>
+    </div>
+    <div>
+      <label for="pct">Tip: </label>
+      <input id="pct" type="number" value="15"/>%
+    </div>
+    <hr/>
+    <div class="out">
+      <label for="base">Base Value: </label>
+      <output for="mynum pct" id="base">&nbsp;</output>
+    </div>
+    <div class="out">
+      <label for="tip">Tip Amt: </label>
+      <output for="mynum pct" id="tip">&nbsp;</output>
+    </div>
+    <div class="out">
+      <label for="total">Total: </label>
+      <output for="mynum pct" id="total">&nbsp;</output>
+    </div>
+    <div class="out">
+      <label for="check">Check Digit: </label>
+      <output for="mynum pct" id="check">&nbsp;</output>
+    </div>
+    <div class="out">
+      <label for="basedig">Base Digit: </label>
+      <output for="mynum pct" id="basedig">&nbsp;</output>
+    </div>
+    <div class="out">
+      <label for="adjustment">Adjustment: </label>
+      <output for="total check" id="adjustment">&nbsp;</output>
+    </div>
+    <div class="out final">
+      <label for="newtip">New Tip: </label>
+      <output for="total check" id="newtip">&nbsp;</output>
+    </div>
+    <div class="out final">
+      <label for="newtotal">New Total: </label>
+      <output for="total check" id="newtotal">&nbsp;</output>
+    </div>
     </form>
 </div>    
 </body>
